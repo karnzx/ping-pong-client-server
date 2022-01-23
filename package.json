@@ -1,0 +1,23 @@
+{
+  "name": "mypong",
+  "version": "1.0.0",
+  "description": "this is first init for socket.io ponggame",
+  "main": "server.js",
+  "scripts": {
+    "test": "\"echo \\\"testing\\"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/karnzx/ping-pong-client-server.git"
+  },
+  "keywords": [
+    "socket.io",
+    "pong_game"
+  ],
+  "author": "ping-pong-client-server",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/karnzx/ping-pong-client-server/issues"
+  },
+  "homepage": "https://github.com/karnzx/ping-pong-client-server#readme"
+}
