@@ -28,7 +28,7 @@ function setup() {
         winner = "";
         leftscore = 0;
         rightscore = 0;
-        totalHits = 0;
+        // totalHits = 0;
     });
 
     // get high score from text file to present in the buttom left corner
@@ -72,11 +72,11 @@ function draw() {
     text(winner, (windowWidth / 2), (windowHeight / 2));
 
     // show rally on screen
-    totalHits = ball.getHits();
-    fill(0);
-    textSize(140);
-    textAlign(CENTER);
-    text(totalHits, (windowWidth / 2), 100);
+    // totalHits = ball.getHits();
+    // fill(0);
+    // textSize(140);
+    // textAlign(CENTER);
+    // text(totalHits, (windowWidth / 2), 100);
 
     // show highScore on screen
     fill(color(132, 28, 38));
@@ -86,12 +86,12 @@ function draw() {
 
     text(".socketPong.", windowWidth - 160, windowHeight - 50);
 
-    // if new high score 
-    if (totalHits > highScore) {
-        // call sendHighScore() outside the loop!
-        sendHighScore(totalHits);
-        highScore = totalHits;
-    }
+    // if new high score
+    // if (totalHits > highScore) {
+    //     // call sendHighScore() outside the loop!
+    //     sendHighScore(totalHits);
+    //     highScore = totalHits;
+    // }
 
     // Show scores on client screen
     data = {
@@ -103,6 +103,6 @@ function draw() {
 }
 
 // send high score to server
-function sendHighScore(hits) {
-    socket.emit('resetHighHitScore', hits);
-}
+// function sendHighScore(hits) {
+//     socket.emit('resetHighHitScore', hits);
+// }
