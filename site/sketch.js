@@ -3,7 +3,6 @@ var socket;
 let leftscore = 0;
 let rightscore = 0;
 var winner = "";
-var highScore = 0;
 
 function setup() {
     createCanvas(windowWidth, windowHeight);
@@ -12,97 +11,70 @@ function setup() {
     left = new Paddle(true);
     right = new Paddle(false);
 
-    socket = io.connect('/');
 
-    // When we recieve data from socket
+    socket = io.connect('/'); // สั่ง connect  เข้ากับ url / หรือ index
+
+    // เมื่อได้รับข้อมูลจาก socket 
     socket.on('mouse1', function (data) {
-        left.move(data.x);
+        left.move(data.x); //ส่ง data ไปยัง paddle ด้านซ้าย 
     });
     socket.on('mouse2', function (data) {
-        right.move(-data.x);
+        right.move(-data.x); //ส่ง data ไปยัง paddle ด้านขวา
     });
-    // if we get resetsketch reset every data to 0 and new game
+    // ถ้า socket ได้ข้อมูลมาเป็น resetSketch จะทำคำสั่งต่อไปนี้
     socket.on('resetSketch', function (data) {
         console.log("sketch has been reset: " + data);
-        ball.newGame();
-        winner = "";
+        ball.newGame(); // เรียก function newGame ของ ball 
+        winner = ""; // reset ชื่อผู้ชนะ
         leftscore = 0;
-        rightscore = 0;
-        // totalHits = 0;
+        rightscore = 0; // reset data ทั้งหมด
+        totalHits = 0;
     });
 
-    // get high score from text file to present in the buttom left corner
-    socket.on('sendHighScore', function (data) {
-        highScore = data;
-    });
 }
 
 function draw() {
+
     background(color(255, 253, 208));
     textFont('Cute Font');
-
+    //เช็คลูกบอลว่าชนมั้ย
     ball.checkPaddleRight(right);
     ball.checkPaddleLeft(left);
-
+    //วาดแล้วก็ update paddle 
     left.show();
     right.show();
     left.update();
     right.update();
-
+    // update ลูกบอล
     ball.update();
     ball.edges();
     ball.show();
-
+    //โชว์คะแนน ของฝั่งซ้ายและขวา
     fill(color(49, 57, 60));
     textSize(76);
     text(leftscore, 80, 80);
     text(rightscore, width - 80, 80);
 
-    // Display winner
+    // บอกว่าผู้เล่นคนไหนชนะ
     if (leftscore == 10) {
         winner = "Player 1 Won!";
-        ball.endGame();
+        ball.endGame(); // สั่งจบเกม
     } else if (rightscore == 10) {
         winner = "Player 2 Won!"
-        ball.endGame();
+        ball.endGame();  // สั่งจบเกม
     }
     fill(0);
     textSize(124);
     textAlign(CENTER);
     text(winner, (windowWidth / 2), (windowHeight / 2));
 
-    // show rally on screen
-    // totalHits = ball.getHits();
-    // fill(0);
-    // textSize(140);
-    // textAlign(CENTER);
-    // text(totalHits, (windowWidth / 2), 100);
 
-    // show highScore on screen
-    fill(color(132, 28, 38));
-    textSize(60);
-    textAlign(CENTER);
-    text("top rally: " + highScore, 180, windowHeight - 50);
-
-    text(".socketPong.", windowWidth - 160, windowHeight - 50);
-
-    // if new high score
-    // if (totalHits > highScore) {
-    //     // call sendHighScore() outside the loop!
-    //     sendHighScore(totalHits);
-    //     highScore = totalHits;
-    // }
-
-    // Show scores on client screen
+    // แสดงคะแนนบนหน้าจอผู้เล่น
     data = {
         LS: leftscore,
         RS: rightscore
     };
     console.log(data);
-    socket.emit('clientScore', data);
+    socket.emit('clientScore', data); // ส่งข้อมูลไปยัง server
 }
 
-// send high score to server
-// function sendHighScore(hits) {
-//     socket.emit('resetHighHitScore', hits);
-// }
