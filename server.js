@@ -1,5 +1,4 @@
 var express = require('express');
-const fs = require('fs')
 
 var app = express();
 
