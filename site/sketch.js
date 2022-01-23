@@ -36,7 +36,6 @@ function setup() {
 function draw() {
 
     background(color(255, 253, 208));
-    textFont('Cute Font');
     //เช็คลูกบอลว่าชนมั้ย
     ball.checkPaddleRight(right);
     ball.checkPaddleLeft(left);
