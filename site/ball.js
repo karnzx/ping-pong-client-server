@@ -1,7 +1,7 @@
-class Ball{
+class Ball {
     constructor() { //กำหนดค่าเริ่มต้น
-        this.x = width/2;
-        this.y = height/2;
+        this.x = width / 2;
+        this.y = height / 2;
         this.xspeed = 0;
         this.yspeed = 0;
         this.r = 13; //?
@@ -13,37 +13,37 @@ class Ball{
 
     checkPaddleLeft(p) { //เมื่อบอลชน paddle ซ้าย
 
-        if (this.y - this.r < p.y + p.h/2 &&
-            this.y + this.r > p.y - p.h/2 &&
-            this.x - this.r < p.x + p.w/2) {
+        if (this.y - this.r < p.y + p.h / 2 &&
+            this.y + this.r > p.y - p.h / 2 &&
+            this.x - this.r < p.x + p.w / 2) {
 
             if (this.x > p.x) {
                 // this.hit++;
-                let diff = this.y - (p.y - p.h/2);
+                let diff = this.y - (p.y - p.h / 2);
                 let rad = radians(45);
                 let angle = map(diff, 0, p.h, -rad, rad);
                 this.speed++;
                 this.xspeed = this.speed * cos(angle);
                 this.yspeed = this.speed * sin(angle);
-                this.x = p.x + p.w/2 + this.r;
+                this.x = p.x + p.w / 2 + this.r;
             }
 
         }
     }
     checkPaddleRight(p) { //เมื่อบอลชน paddle ซ้าย
 
-        if (this.y - this.r < p.y + p.h/2 &&
-            this.y + this.r > p.y - p.h/2 &&
-            this.x + this.r > p.x - p.w/2) {
+        if (this.y - this.r < p.y + p.h / 2 &&
+            this.y + this.r > p.y - p.h / 2 &&
+            this.x + this.r > p.x - p.w / 2) {
 
             if (this.x < p.x) {
                 // this.hit++;
-                let diff = this.y - (p.y - p.h/2);
+                let diff = this.y - (p.y - p.h / 2);
                 let angle = map(diff, 0, p.h, radians(225), radians(135));
                 this.speed++;
                 this.xspeed = this.speed * cos(angle);
                 this.yspeed = this.speed * sin(angle);
-                this.x = p.x - p.w/2 - this.r;
+                this.x = p.x - p.w / 2 - this.r;
             }
         }
     }
@@ -55,9 +55,9 @@ class Ball{
 
     reset() { //รีเซ็ตค่ากลับไปเริ่มต้น
         // this.hit = 0;
-        this.x = width/2;
-        this.y = height/2;
-        let angle = random(-PI/4, PI/4);
+        this.x = width / 2;
+        this.y = height / 2;
+        let angle = random(-PI / 4, PI / 4);
         this.speed = 7;
         this.xspeed = this.speed * Math.cos(angle);
         this.yspeed = this.speed * Math.sin(angle);
@@ -85,12 +85,12 @@ class Ball{
 
     show() { //การแสดงผลลูกบอล
         fill(0); //สีดำ
-        ellipse(this.x, this.y, this.r*2); //ขนาดลูกบอล
+        ellipse(this.x, this.y, this.r * 2); //ขนาดลูกบอล
     }
 
-    // getHits() { //เมื่อชนของให้อัพเดทว่าชน
-    //     return this.hit;
-    // }
+    getHits() { //เมื่อชนของให้อัพเดทว่าชน
+        return this.hit;
+    }
 
     endGame() { //จบเกม เซ็ทค่าทุกอย่างกลับไปเป็น 0
         this.x = 0;
@@ -102,8 +102,8 @@ class Ball{
     }
 
     newGame() { //เมื่อกดปุ่ม newGame ให้ทำการเซ็คค่าเป็นค่าเริ่มต้น แล้วแล้วใช้ฟังก์ชัน reset()
-        this.x = width/2;
-        this.y = height/2;
+        this.x = width / 2;
+        this.y = height / 2;
         this.xspeed = 0;
         this.yspeed = 0;
         this.r = 10;
